@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { sleep } from "../utils/sleep";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -14,10 +15,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (email: string, password: string) => {
     // Login fake: validar campos si deseas, guardar token en memoria
     localStorage.setItem("token", "fake-token");
-    setTimeout(()=>{
-      setIsAuthenticated(true);
-
-    },300)
+    await sleep(1000);
+    setIsAuthenticated(true);
   };
 
   const logout = () => {

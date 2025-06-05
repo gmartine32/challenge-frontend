@@ -3,10 +3,12 @@ import LabeledInput from "../../components/LabeledInput/LabeledInput";
 import SubmitedButton from "../../components/SubmitedButton/SubmitedButton";
 import { useAuth } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
+import { useToggle } from "../../hooks/useToggle";
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [loading, toggleLoading]=useToggle()
   const { form, handlerForm } = useForm<{ email: string; password: string }>({
     email: "",
     password: "",
@@ -14,7 +16,9 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    toggleLoading()
     await login(form.email, form.password);
+    toggleLoading()
     navigate("/");
   };
 
@@ -43,7 +47,7 @@ const Login = () => {
             onChange={(e) => handlerForm("password", e.target.value)}
           />
 
-          <SubmitedButton type="submit">Log In</SubmitedButton>
+          <SubmitedButton loading={loading} type="submit">Log In</SubmitedButton>
         </form>
         <span className="text-center w-full text-white ">V. 1.0.0.0</span>
       </div>
