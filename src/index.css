@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .pause-animation {
+      animation-play-state: paused !important;
+    }
+    .text-stroke {
+        -webkit-text-stroke: 2px var(--tw-prose-primary, var(--primary)); /* Usa primary */
+        color: var(--background);
+        font-weight: bold;
+      }
+  }
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/public/fonts/Menlo-Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+body{
+    background-color: var(--dark-background);
+    font-family: 'Nunito', Arial, Helvetica, sans-serif;
+}
+:root {
+    --background: #11211B;
+    --dark-background: #0a1310;
+    --foreground: #ededed;
+    --primary: #13EF95;
+    --secondary: #0087FF;
+    --tertiary:  #A1FFD9;
+  }
+  
+  @theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+    --color-primary: var(--primary);
+    --color-secondary: var(--secondary);
+    --color-brand: var(--background);
+    --color-tertiary: var(--tertiary);
+    --color-dark-background: var(--dark-background);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #0a0a0a;
+      --foreground: #ededed;
+    }
+  }
