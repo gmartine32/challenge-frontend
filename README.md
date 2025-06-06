@@ -1,4 +1,4 @@
-# Tenpo - Desafío Técnico Frontend
+# Tekton Labs / Tenpo - Desafío Técnico Frontend
 
 Este proyecto es una prueba técnica desarrollada en **React + TypeScript**
 
@@ -118,7 +118,7 @@ src/
 ## 📌 Consideraciones técnicas
 
 - El token se guarda en Zustand con persistencia (localStorage).
-- El código está listo para crecer: se pueden agregar módulos como "Password cahnge", "User", etc., fácilmente.
+- El código está listo para crecer: se pueden agregar módulos como "Password change", "User", etc., fácilmente.
 - En la vista Home, se implementó scroll infinito (infinite scroll) como estrategia de paginación para mejorar el rendimiento y la experiencia del usuario. Esta técnica permite cargar los datos de forma progresiva a medida que el usuario navega, evitando sobrecargar la memoria con los +2000 elementos desde el inicio y optimizando así los tiempos de carga y el consumo de recursos.
 
 ---
