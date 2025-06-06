@@ -5,7 +5,7 @@ Este proyecto es una prueba técnica desarrollada en **React + TypeScript**
 ## 🧠 Funcionalidad
 
 - Pantalla de login con validación básica y login simulado (`fake-token`).
-- Home protegida por autenticación, que consume una API pública, puedes aplicar filtros y lista +2000 elementos.
+- Home protegida por autenticación, que consume una API pública, puedes aplicar filtros y listar +2000 elementos (Paginado implementando infinite Scroll).
 - Logout que limpia el estado de sesión y redirige al login.
 - Arquitectura basada en contexto (migrado a Zustand) para separar rutas públicas y privadas.
 - Interceptor de Axios configurado para incluir token en cada request.
@@ -31,7 +31,7 @@ Asegúrate de tener Node.js v22.15.1 (o compatible) instalado.
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/tu-usuario/tenpo-tech-challenge.git
+git clone https://github.com/gmartine32/challenge-frontend
 cd tenpo-tech-challenge
 ```
 
@@ -119,6 +119,7 @@ src/
 
 - El token se guarda en Zustand con persistencia (localStorage).
 - El código está listo para crecer: se pueden agregar módulos como "Password cahnge", "User", etc., fácilmente.
+- En la vista Home, se implementó scroll infinito (infinite scroll) como estrategia de paginación para mejorar el rendimiento y la experiencia del usuario. Esta técnica permite cargar los datos de forma progresiva a medida que el usuario navega, evitando sobrecargar la memoria con los +2000 elementos desde el inicio y optimizando así los tiempos de carga y el consumo de recursos.
 
 ---
 
