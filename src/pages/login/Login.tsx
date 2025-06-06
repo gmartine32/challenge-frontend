@@ -4,21 +4,28 @@ import SubmitedButton from "../../core/SubmitedButton/SubmitedButton";
 import { useForm } from "../../hooks/useForm";
 import { useToggle } from "../../hooks/useToggle";
 import { useAuthStore } from "../../store/AuthStore";
+import { mockLogin } from "../../services/authService";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [loading, toggleLoading]=useToggle()
+  const [loading, toggleLoading] = useToggle();
   const { form, handlerForm } = useForm<{ email: string; password: string }>({
     email: "",
     password: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    toggleLoading()
-   await useAuthStore.getState().login(form.email, form.password);
-    toggleLoading()
-    navigate("/");
+    try {
+      e.preventDefault();
+      toggleLoading();
+      const token = await mockLogin(form.email, form.password);
+      useAuthStore.getState().login(token);
+      navigate("/");
+    } catch (error:{ message?: string } | any) {
+      alert(error?.message || "An error occurred during login");
+    } finally {
+      toggleLoading();
+    }
   };
 
   return (
@@ -37,6 +44,7 @@ const Login = () => {
             type="email"
             value={form.email}
             onChange={(e) => handlerForm("email", e.target.value)}
+            required
           />
           <LabeledInput
             label="Password"
@@ -44,13 +52,24 @@ const Login = () => {
             type="password"
             value={form.password}
             onChange={(e) => handlerForm("password", e.target.value)}
+            required
           />
 
-          <SubmitedButton loading={loading} type="submit">Log In</SubmitedButton>
+          <SubmitedButton loading={loading} type="submit">
+            Log In
+          </SubmitedButton>
         </form>
-       <div className="w-full flex justify-center">
-       <span className="text-center w-full text-xs text-white ">Can't remember your password? <Link to={'/change-password'} className="underline text-secondary hover:text-tertiary">change it</Link></span>
-       </div>
+        <div className="w-full flex justify-center">
+          <span className="text-center w-full text-xs text-white ">
+            Can't remember your password?{" "}
+            <Link
+              to={"/change-password"}
+              className="underline text-secondary hover:text-tertiary"
+            >
+              change it
+            </Link>
+          </span>
+        </div>
       </div>
     </section>
   );
