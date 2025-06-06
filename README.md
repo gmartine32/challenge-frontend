@@ -102,7 +102,7 @@ src/
 ├── assets/            # Imágenes o íconos
 ├── core/              # Componentes reutilizables
 ├── context/           # (opcional) contexto no migrado a Zustand
-├── layouts/           # PublicLayout y PrivateLayout
+├── layouts/           # PrivateLayout
 ├── pages/             # Login, Home, User y PasswordChange
 ├── routes/            # Configuración de rutas
 ├── services/          # Configuración de Axios
