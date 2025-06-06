@@ -33,45 +33,48 @@ export const HomeProvider = ({ children }: { children: ReactNode }) => {
     const url = new URL("/api/nvd/rest/json/cves/2.0", window.location.origin);
     url.searchParams.set("resultsPerPage", resultsPerPage.toString());
     url.searchParams.set("startIndex", index.toString());
-  
+
     if (form.searchText) url.searchParams.set("keywordSearch", form.searchText);
     if (form.severity) url.searchParams.set("cvssV3Severity", form.severity);
     if (form.startDate)
       url.searchParams.set("pubStartDate", `${form.startDate}T00:00:00.000Z`);
     if (form.endDate)
       url.searchParams.set("pubEndDate", `${form.endDate}T23:59:59.000Z`);
-  
+
     return url.toString();
   };
 
   const fetchCVEs = useCallback(
     async (index = startIndex) => {
       if (loading || !hasMore) return;
-  
+
       setLoading(true);
       const url = buildUrl(index);
-  
+
       try {
         const res = await api.get(url);
         const data = await res.data;
         const newItems = data.vulnerabilities || [];
         setTotalResults(data.totalResults || null);
         if (newItems.length < resultsPerPage) setHasMore(false);
-  
+
         setCves((prev) => [...prev, ...newItems]);
-        setStartIndex((prev)=>prev + resultsPerPage);
+        setStartIndex((prev) => prev + resultsPerPage);
       } catch (error) {
         console.error("Error fetching CVEs:", error);
+        setHasMore(false);
+        alert(
+          "We're sorry, but the service you're trying to access is currently unavailable due to a server issue on the provider's end. Please try again later."
+        );
       } finally {
         setLoading(false);
       }
     },
     [startIndex, form, hasMore, loading]
   );
-  
 
   const search = () => {
-    setTotalResults(null)
+    setTotalResults(null);
     setCves([]);
     setStartIndex(0);
     setHasMore(true);
@@ -96,7 +99,7 @@ export const HomeProvider = ({ children }: { children: ReactNode }) => {
     fetchMore: fetchCVEs,
     search,
     reset,
-    totalResults
+    totalResults,
   };
 
   return <HomeContext.Provider value={value}>{children}</HomeContext.Provider>;
