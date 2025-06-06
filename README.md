@@ -32,7 +32,7 @@ Asegúrate de tener Node.js v22.15.1 (o compatible) instalado.
 
 ```bash
 git clone https://github.com/gmartine32/challenge-frontend
-cd tenpo-tech-challenge
+cd challenge-frontend
 ```
 
 2. Instala dependencias:
@@ -164,7 +164,8 @@ Aunque la implementación actual basada en `axios.interceptors` funciona correct
 
 - El token se guarda en Zustand con persistencia (localStorage).
 - El código está listo para crecer: se pueden agregar módulos como "Password change", "User", etc., fácilmente.
-- En la vista Home, se implementó scroll infinito (infinite scroll) como estrategia de paginación para mejorar el rendimiento y la experiencia del usuario. Esta técnica permite cargar los datos de forma progresiva a medida que el usuario navega, evitando sobrecargar la memoria con los +2000 elementos desde el inicio y optimizando así los tiempos de carga y el consumo de recursos.
+- En la vista Home, se implementó scroll infinito (infinite scroll) como estrategia de paginación para mejorar el rendimiento y la experiencia del usuario. Esta técnica permite cargar los datos de forma progresiva a medida que el usuario navega, evitando sobrecargar la memoria con los +2000 elementos desde el inicio y optimizando así los tiempos de carga y el consumo de recursos. Además, a futuro para optimizar el renderizado de listas extensas, se puede emplear la virtualización de listas utilizando librerías como react-window o react-virtualized. Estas técnicas permitirían renderizar solo los elementos visibles en pantalla, minimizando el consumo de memoria y mejorando la fluidez de la interfaz, especialmente en dispositivos móviles o con recursos limitados.
+
 
 ---
 
