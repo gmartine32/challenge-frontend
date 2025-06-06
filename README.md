@@ -100,7 +100,7 @@ GET /rest/json/cves/2.0?resultsPerPage=2000
 ```
 src/
 ├── assets/            # Imágenes o íconos
-├── components/        # Componentes reutilizables
+├── core/              # Componentes reutilizables
 ├── context/           # (opcional) contexto no migrado a Zustand
 ├── layouts/           # PublicLayout y PrivateLayout
 ├── pages/             # Login, Home, User y PasswordChange
