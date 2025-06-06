@@ -47,6 +47,13 @@ npm install
 npm run dev
 ```
 
+4. Credenciales:
+
+```bash
+Email: admin@example.com
+Password: password123
+```
+
 ---
 
 ## 🌐 API utilizada
