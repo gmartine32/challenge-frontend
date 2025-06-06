@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://api.nvd.nist.gov'; 
+const API_BASE_URL = '/api';
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  // No baseURL configurada aquí
   headers: {
     'Content-Type': 'application/json',
   },

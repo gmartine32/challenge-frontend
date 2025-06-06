@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import LabeledInput from "../../components/LabeledInput/LabeledInput";
-import SubmitedButton from "../../components/SubmitedButton/SubmitedButton";
+import LabeledInput from "../../core/LabeledInput/LabeledInput";
+import SubmitedButton from "../../core/SubmitedButton/SubmitedButton";
 import { useAuth } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
 import { useToggle } from "../../hooks/useToggle";
