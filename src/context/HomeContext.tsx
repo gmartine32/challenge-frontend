@@ -27,7 +27,7 @@ export const HomeProvider = ({ children }: { children: ReactNode }) => {
   const [hasMore, setHasMore] = useState(true);
   const [totalResults, setTotalResults] = useState<number | null>(null);
 
-  const resultsPerPage = 10;
+  const resultsPerPage = 100;
 
   const buildUrl = (index: number) => {
     const url = new URL("/api/nvd/rest/json/cves/2.0", window.location.origin);
