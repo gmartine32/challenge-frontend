@@ -120,7 +120,45 @@ src/
 └── main.tsx           # Entrada principal
 ```
 
+
 ---
+## 🏗️ Arquitectura: Rutas públicas y privadas
+
+El proyecto implementa una arquitectura modular basada en la separación de rutas utilizando **React Router** y **Zustand** como gestor de estado para el manejo de autenticación.
+
+- **Rutas públicas**: son accesibles sin necesidad de estar autenticado. Se utilizan principalmente para procesos iniciales como el inicio de sesión o cambio de contraseña (`/login`, `/password-change`).
+- **Rutas privadas**: están protegidas mediante un `PrivateLayout`, que verifica la existencia de un token almacenado en Zustand antes de renderizar cualquier componente privado (`/home`, `/user`, etc.).
+
+Esta separación clara permite una escalabilidad eficiente: cada nuevo módulo puede integrarse fácilmente como público o privado sin afectar el resto de la aplicación. Además, la estructura facilita el mantenimiento y mejora la experiencia de usuario al controlar el acceso a las vistas protegidas de forma centralizada.
+
+---
+
+## 🚀 Propuesta de mejora: Abstracción del cliente HTTP
+
+Actualmente, el proyecto maneja las peticiones al backend mediante una instancia de Axios con interceptores para incluir el token y gestionar la renovación de credenciales expiradas. Si bien esta solución es funcional, su acoplamiento directo a Axios puede dificultar futuras migraciones o integraciones con otras herramientas como `fetch`, `ky`, `GraphQL` u otros entornos de testing.
+
+### 🔧 Solución propuesta: Clase HttpClient desacoplada
+
+Se propone implementar una clase `HttpClient` que encapsule toda la lógica de peticiones, incluyendo:
+
+- Agregado automático del token en los headers.
+- Manejo del estado de renovación de tokens (`refreshToken`).
+- Reintento automático de peticiones fallidas por expiración de token.
+- Capacidad de alternar entre Axios, Fetch o cualquier otro motor sin reescribir la lógica de autenticación.
+
+### 🎯 Beneficios
+
+- **Desacoplamiento**: no dependemos directamente de Axios, lo que facilita cambiar de librería si es necesario.
+- **Reusabilidad**: se puede usar el mismo cliente HTTP en entornos distintos (web, móvil, SSR).
+- **Escalabilidad**: nuevas funcionalidades (timeout global, métricas, logs, reintentos automáticos) pueden añadirse sin modificar cada petición.
+- **Mantenibilidad**: centraliza la lógica de autenticación y errores comunes en un solo lugar.
+
+### 📌 Justificación
+
+Aunque la implementación actual basada en `axios.interceptors` funciona correctamente, al crecer el proyecto o requerir soporte multiplataforma, es más sostenible usar una clase desacoplada. Esto permite escalar la lógica sin fricciones y seguir principios como **Open/Closed** y **Single Responsibility** del diseño orientado a objetos.
+
+---
+
 
 ## 📌 Consideraciones técnicas
 
@@ -129,6 +167,16 @@ src/
 - En la vista Home, se implementó scroll infinito (infinite scroll) como estrategia de paginación para mejorar el rendimiento y la experiencia del usuario. Esta técnica permite cargar los datos de forma progresiva a medida que el usuario navega, evitando sobrecargar la memoria con los +2000 elementos desde el inicio y optimizando así los tiempos de carga y el consumo de recursos.
 
 ---
+
+## 🌐 Despliegue
+
+Como valor agregado, se realizó el despliegue completo de la aplicación en producción:
+
+🔗 [Ver aplicación desplegada](https://challenge-front.lmcdigitalriver.online/)
+
+Esto permite visualizar y probar el sistema en un entorno real.
+
+
 
 ## 📄 Autor
 
