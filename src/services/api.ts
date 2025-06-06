@@ -1,9 +1,9 @@
 import axios from 'axios';
+import { getToken } from '../utils/getToken';
 
 const API_BASE_URL = '/api';
 
 const api = axios.create({
-  // No baseURL configurada aquí
   headers: {
     'Content-Type': 'application/json',
   },
@@ -26,7 +26,7 @@ const processQueue = (error: any, token: string | null = null) => {
 
 api.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem('accessToken');
+    const token = getToken();
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -55,7 +55,7 @@ api.interceptors.response.use(
       }
 
       isRefreshing = true;
-      const refreshToken = sessionStorage.getItem('refreshToken');
+      const refreshToken = getToken();
 
       if (!refreshToken) {
         return Promise.reject(error);
@@ -67,7 +67,7 @@ api.interceptors.response.use(
         });
 
         const newAccessToken = response.data.accessToken;
-        sessionStorage.setItem('accessToken', newAccessToken);
+        sessionStorage.setItem('token', newAccessToken);
         processQueue(null, newAccessToken);
 
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;

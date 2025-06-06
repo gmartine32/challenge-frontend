@@ -1,8 +1,8 @@
-import type { JSX } from "react";
-import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import PrivateLayout from "../../layouts/PrivateLayout/PrivateLayout";
+import { useAuthStore } from "../../store/AuthStore";
 
-export function PrivateRoute({ children }: { children: JSX.Element }) {
-    const { isAuthenticated } = useAuth();
-    return isAuthenticated ? children : <Navigate to="/login" />;
-  }
+export const PrivateRoute = () => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  return isAuthenticated ? <PrivateLayout /> : <Navigate to="/login" replace/>;
+}

@@ -9,7 +9,7 @@ import {
 import { useForm } from "../hooks/useForm";
 import type { FilterType } from "../types/filter";
 import type { CveItem, HomeContextType } from "../types/contextHome";
-import axios from "axios";
+import api from "../services/api";
 
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
 
@@ -52,7 +52,7 @@ export const HomeProvider = ({ children }: { children: ReactNode }) => {
       const url = buildUrl(index);
   
       try {
-        const res = await axios.get(url);
+        const res = await api.get(url);
         const data = await res.data;
         const newItems = data.vulnerabilities || [];
         setTotalResults(data.totalResults || null);
@@ -71,6 +71,7 @@ export const HomeProvider = ({ children }: { children: ReactNode }) => {
   
 
   const search = () => {
+    setTotalResults(null)
     setCves([]);
     setStartIndex(0);
     setHasMore(true);
