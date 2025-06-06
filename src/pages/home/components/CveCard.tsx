@@ -9,13 +9,13 @@ const CveCard: React.FC<{
 }> = ({ description, id, severity, link }) => {
   return (
     <div
-      key={id}
+      key={id+severity}
       className={`border rounded-xl shadow p-4 ${getSeverityColor(severity)}`}
     >
       <h3 className="font-bold text-lg mb-1">{id}</h3>
       <p className="text-sm mb-2">{description}</p>
       <div className={"text-xs font-medium italic mb-2 "}>
-        Severidad: <span className="font-bold ">{severity}</span>
+        Severity: <span className="font-bold ">{severity}</span>
       </div>
       {link && (
         <a
@@ -24,7 +24,7 @@ const CveCard: React.FC<{
           rel="noopener noreferrer"
           className="text-secondary hover:underline text-sm"
         >
-          Más información
+          More info
         </a>
       )}
     </div>

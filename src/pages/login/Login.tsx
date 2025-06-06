@@ -1,13 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LabeledInput from "../../core/LabeledInput/LabeledInput";
 import SubmitedButton from "../../core/SubmitedButton/SubmitedButton";
-import { useAuth } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
 import { useToggle } from "../../hooks/useToggle";
+import { useAuthStore } from "../../store/AuthStore";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
   const [loading, toggleLoading]=useToggle()
   const { form, handlerForm } = useForm<{ email: string; password: string }>({
     email: "",
@@ -17,7 +16,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     toggleLoading()
-    await login(form.email, form.password);
+   await useAuthStore.getState().login(form.email, form.password);
     toggleLoading()
     navigate("/");
   };
@@ -49,7 +48,9 @@ const Login = () => {
 
           <SubmitedButton loading={loading} type="submit">Log In</SubmitedButton>
         </form>
-        <span className="text-center w-full text-white ">V. 1.0.0.0</span>
+       <div className="w-full flex justify-center">
+       <span className="text-center w-full text-xs text-white ">Can't remember your password? <Link to={'/change-password'} className="underline text-secondary hover:text-tertiary">change it</Link></span>
+       </div>
       </div>
     </section>
   );

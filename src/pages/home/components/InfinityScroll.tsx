@@ -20,27 +20,27 @@ const InfiniteScroll = () => {
   }, [fetchMore, loading, hasMore]);
 
   return (
-    <div className="p-4 mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 border-2 rounded-2xl border-primary">
+    <div id="container-cves" className="p-4 mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 border-2 rounded-2xl border-primary">
       {cves.map((cve, index) => {
         const id = cve.cve?.id || `CVE-${index}`;
         const description =
-          cve.cve?.descriptions?.[0]?.value || "Sin descripción.";
+          cve.cve?.descriptions?.[0]?.value || "Without description.";
         const severity =
           cve.cve?.metrics?.cvssMetricV31?.[0]?.cvssData?.baseSeverity ||
-          "Desconocido";
+          "unknown";
         const link = cve.cve?.references?.[0]?.url || "";
         const props = { id, description, severity, link };
-        return <CveCard {...props} />;
+        return <CveCard key={id+index} {...props} />;
       })}
 
       {loading && (
         <p className="text-center col-span-full text-primary text-2xl">
-          Cargando más resultados...
+          Loading more results...
         </p>
       )}
       {!hasMore && (
         <p className="text-center col-span-full text-primary text-2xl">
-          No hay más resultados.
+          No more results.
         </p>
       )}
     </div>

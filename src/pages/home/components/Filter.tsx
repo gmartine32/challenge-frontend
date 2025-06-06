@@ -2,11 +2,17 @@ import { useHomeContext } from "../../../context/HomeContext";
 import LabeledInput from "../../../core/LabeledInput/LabeledInput";
 import LabeledSelect from "../../../core/LabeledSelect/LabeledSelect";
 import SubmitedButton from "../../../core/SubmitedButton/SubmitedButton";
+import { validateDates } from "../../../utils/dates";
 
 const Filter = () => {
-  const { form, handlerForm, search, fetchMore } = useHomeContext();
+  const { form, handlerForm, search, fetchMore, loading } = useHomeContext();
 
   const handleSearch = () => {
+    const { valid, message } = validateDates(form.startDate, form.endDate);
+    if (!valid) {
+      alert(message);
+      return;
+    }
     search();
     fetchMore();
   };
@@ -45,8 +51,10 @@ const Filter = () => {
         type="text"
         value={form.searchText}
         onChange={(e) => handlerForm("searchText", e.target.value)}
+        placeholder="Enter keywords"
+        clearable
       />
-      <SubmitedButton onClick={handleSearch}>
+      <SubmitedButton onClick={handleSearch} loading={loading}>
         <span className="text-black">Search</span>
       </SubmitedButton>
     </section>
