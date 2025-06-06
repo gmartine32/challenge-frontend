@@ -54,7 +54,6 @@ const LabeledSelect: React.FC<LabeledSelectProps> = ({
             <option
               key={option.value}
               value={option.value}
-              className="text-black"
             >
               {option.label}
             </option>

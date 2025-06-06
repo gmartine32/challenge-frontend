@@ -5,7 +5,7 @@ import SubmitedButton from "../../../core/SubmitedButton/SubmitedButton";
 import { validateDates } from "../../../utils/dates";
 
 const Filter = () => {
-  const { form, handlerForm, search, fetchMore, loading } = useHomeContext();
+  const { form, handlerForm, search, loading } = useHomeContext();
 
   const handleSearch = () => {
     const { valid, message } = validateDates(form.startDate, form.endDate);
@@ -14,7 +14,7 @@ const Filter = () => {
       return;
     }
     search();
-    fetchMore();
+ 
   };
   return (
     <section className="w-full p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 border-2 rounded-2xl border-primary items-end">
@@ -51,7 +51,7 @@ const Filter = () => {
         type="text"
         value={form.searchText}
         onChange={(e) => handlerForm("searchText", e.target.value)}
-        placeholder="Enter keywords"
+        placeholder="Enter keywords (description)"
         clearable
       />
       <SubmitedButton onClick={handleSearch} loading={loading}>

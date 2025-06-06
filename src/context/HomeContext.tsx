@@ -59,7 +59,7 @@ export const HomeProvider = ({ children }: { children: ReactNode }) => {
         if (newItems.length < resultsPerPage) setHasMore(false);
   
         setCves((prev) => [...prev, ...newItems]);
-        setStartIndex(index + resultsPerPage);
+        setStartIndex((prev)=>prev + resultsPerPage);
       } catch (error) {
         console.error("Error fetching CVEs:", error);
       } finally {
@@ -75,6 +75,7 @@ export const HomeProvider = ({ children }: { children: ReactNode }) => {
     setCves([]);
     setStartIndex(0);
     setHasMore(true);
+    fetchCVEs(0);
   };
 
   const reset = () => {
